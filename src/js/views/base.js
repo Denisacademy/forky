@@ -4,4 +4,4 @@ export const elements = {
   searchResList: document.querySelector('.results__list')
 };
 
-console.log(elements);
+//console.log(elements);
