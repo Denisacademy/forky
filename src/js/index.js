@@ -41,6 +41,15 @@ elements.searchForm.addEventListener('submit', e => {
   controllerSearch();
 });
 
-
+elements.searchResPages.addEventListener('click', e => {
+  console.log(e.target);
+  const btn = e.target.closest('.btn-inline');// return elem if click is on arrow
+  console.log(btn);
+  if (btn) {
+    const goTopage = parseInt(btn.dataset.goto, 10); //get data attr
+    searchView.clearResults();
+    searchView.renderResults(state.search.result, goTopage);//from module
+  }
+});
 
 
