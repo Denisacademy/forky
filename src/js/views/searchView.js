@@ -53,8 +53,8 @@ const renderRecipe = recipe => {
     elements.searchResList.insertAdjacentHTML('beforeend', markup);
 };
 
-// type: 'prev' or 'next'
-const createButton = (page, type) => `
+// type: 'prev' or 'next'             //return button
+const createButton = (page, type) => ` 
     <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
         <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
         <svg class="search__icon">
@@ -63,14 +63,16 @@ const createButton = (page, type) => `
     </button>
 `;
 
-
-const renderButtons = (page, numResults, resPerPage) => {
-  const pages = Math.ceil(numResults / resPerPage); // 
+                      //1     recipes.length  5
+const renderButtons = (page, numResults, resPerPage) => {//!!!!!
+  console.log("Redn " + page , numResults, resPerPage);
+  //console.log(recipes, page, resPerPage);
+  const pages = Math.ceil(numResults / resPerPage); // number of pages (28 / 5 = r(6))
   let button;
-  if (page === 1 && pages > 1) {
+  if (page === 1 && pages > 1) {//page def = 1  page === 1 && 
     //button to go to the next page
     button = createButton(page, 'next');
-  } else if (page < pages) {
+  } else if (page < pages) { //1 < 6
     //both buttons
     button = `
       ${createButton(page, 'prev')}
@@ -86,14 +88,14 @@ const renderButtons = (page, numResults, resPerPage) => {
 };
 
 
-export const renderResults = (recipes, page = 2, resPerPage = 5) => {
+export const renderResults = (recipes, page = 1, resPerPage = 5) => {
   // render results of current page
-  console.log(recipes);
-  const start = (page - 1) * resPerPage; //0 *10// 1 * 10
-  const end = page * resPerPage; //1 *10 // 2 * 10
-               //0 10// 10 20//
+  const start = (page - 1) * resPerPage; //0 *10// 1 * 10 (2-1 * 5 = 5)(3 - 1 * 5 = 10)
+  const end = page * resPerPage; //1 *10 // 2 * 10   //0 10// 10 20//
   recipes.slice(start, end).forEach(renderRecipe); //array push each of element
-  
-  // render pagination
-  renderButtons(page, recipes.length, resPerPage);
+  //console.log(page, recipes.length, resPerPage);// 1 28 5
+  // render pagination // page = page 1  recipes.length = numResults resPag = resPage = 5
+  renderButtons(page, recipes.length, resPerPage);//2
+  //renderButtons(recipes.length, resPerPage, page);//2
+
 }
