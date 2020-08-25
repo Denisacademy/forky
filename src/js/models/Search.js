@@ -28,3 +28,6 @@ export default class Search {
 
 }
 
+
+const div = [10, 100, 1000, 10000]; // 2.36 = 2 9/25
+

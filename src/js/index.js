@@ -18,6 +18,7 @@ const state = {};
 const controllerSearch = async () => { //btn search
   // 1) get query from view
   const query = searchView.getInput(); //todo //value
+  //const query = 'pizza';
 
   if(query) {
     // 2) new Search obj and add to state
@@ -45,10 +46,19 @@ const controllerSearch = async () => { //btn search
 };
 
 
+
+
 elements.searchForm.addEventListener('submit', e => {
   e.preventDefault();//reset standart behave
   controllerSearch();
 });
+
+
+// TESTING
+// window.addEventListener('load', e => {
+//   e.preventDefault();//reset standart behave
+//   controllerSearch();
+// });
 
 elements.searchResPages.addEventListener('click', e => {
   
@@ -71,23 +81,29 @@ elements.searchResPages.addEventListener('click', e => {
 
 const controlRecipe = async () => {
   // Get id from url
-  const id = window.location.hash.replace('#', '');
+  const id = window.location.hash.replace('#', ' ');
   console.log(id);
   if(id) {
     // Prepare UI for changes
         
     // Create new recipe object
     state.recipe = new Recipe(id);
+    
+    // TESTING
+    //window.r = state.recipe;
+    
     try {
-      // Get recipe data
+      // Get recipe data and parse ingredients
       await state.recipe.getRecipe();
+      //console.log(state.recipe.ingredients);
+      state.recipe.parseIngredients();
 
       // Calculate serving and time
       state.recipe.calcTime();
       state.recipe.calcServings();
 
       // Render recipe
-      console.log(state.recipe);
+      console.log(state.recipe.ingredients);
     } catch(error) {
       alert('Error processing recipe');
     }
@@ -95,3 +111,21 @@ const controlRecipe = async () => {
 }
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe)); // by def get data
+
+//https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/10677578
+//https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/10262548
+https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/8667232
+const div = [10, 100, 1000, 10000]; // 2.36 = 2 9/25
+const multHunder = [2, 4, 8]; // 3 7 4 
+const fn = [3, 4, 7, 9]; //2.18 []
+const ifAfterDotIsZero = [1, 3, 2];
+const numDec = 2.18;
+function transDec(num) {
+    var cut = +num.includes('.') ? +num.split(''): num;
+    cut = cut % 2 === 0;
+    if(cut) {
+
+    }
+}
+
+//transDec(numDec);
