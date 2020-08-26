@@ -11,6 +11,29 @@ export const clearResults = () => {
   elements.searchResPages.innerHTML = '';
 }
 
+/*==========Select elem
+  //var hash = window.location.hash.replace('#', '')
+  //document.querySelector(`a[href*="${hash}"]`).classList.add('results__link--active')
+  //document.querySelector(`a[href*="54454"]`).classList.add('results__link--active')
+=====*/
+
+//export const showId = id => console.log(id);
+
+
+export const highlightSelected  = id => { //=== get elements with .results__link;
+  Array.from(document.querySelectorAll('.results__link')).forEach(el => el.classList.remove('results__link--active'))
+   
+  //console.log(id);
+  //console.log(document.querySelector(`a[href*="${id}"]`));
+  //console.log(id);
+  //var cur = document.querySelector(`a[href*="2ec050"]`)//.classList.add('results__link--active');
+  //console.log(cur);
+  document.querySelector(`a[href*="${id}"]`).classList.add('results__link--active'); //*?
+  //document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
+
+} 
+
+
 /*
 // Pasta with tomato and spinach
 acc: 0 / acc + cur.length = 5 / newTitle = ['Pasta']

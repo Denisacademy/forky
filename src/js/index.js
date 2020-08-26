@@ -34,7 +34,7 @@ const controllerSearch = async () => { //btn search
     try {
       // 4) Search for recipes
       await state.search.getResults();//return promise
-      console.log(state.search.result)
+      //console.log(state.search.result)
       
       // 5) render result on UI
       clearLoader();
@@ -64,9 +64,9 @@ elements.searchForm.addEventListener('submit', e => {
 
 elements.searchResPages.addEventListener('click', e => {
   
-  console.log(e.target);
+  //console.log(e.target);
   const btn = e.target.closest('.btn-inline');// return elem if click is on arrow
-  console.log(btn);
+  //console.log(btn);
   if (btn) {
     const goTopage = parseInt(btn.dataset.goto, 10); //get data attr
     searchView.clearResults();
@@ -83,12 +83,27 @@ elements.searchResPages.addEventListener('click', e => {
 
 const controlRecipe = async () => {
   // Get id from url
-  const id = window.location.hash.replace('#', ' ');
-  console.log(id);
+  const id = window.location.hash.replace('#', '');
+  //console.log(id);
+  
   if(id) {
     // Prepare UI for changes
     recipeView.clearRecipe();
     renderLoader(elements.recipe);
+
+    // Hightlight selected searc item
+    //console.log(id);
+    var sec = window.location.hash.replace('#', ' ');
+    //console.log(sec);
+
+    //if(state.search) searchView.hightLightSelected(id);
+    //if(state.search) searchView.showId(id);
+    //debugger
+    console.log(document.querySelector(`a[href*="${id}"]`));
+    if(state.search) searchView.highlightSelected(id);
+    //searchView.hightLightSelected(id);
+    //searchView.showId(id);
+
 
     // Create new recipe object
     state.recipe = new Recipe(id);
@@ -107,9 +122,9 @@ const controlRecipe = async () => {
       state.recipe.calcServings();
 
       // Render recipe
-      console.log(state.recipe.ingredients);
+      //console.log(state.recipe.ingredients);
       clearLoader();
-      console.log(state.recipe)
+      //console.log(state.recipe)
       recipeView.renderRecipe(state.recipe);//mod method state
     } catch(error) {
       alert('Error processing recipe');
