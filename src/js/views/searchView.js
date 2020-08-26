@@ -88,7 +88,7 @@ const renderButtons = (page, numResults, resPerPage) => {//!!!!!
 };
 
 
-export const renderResults = (recipes, page = 1, resPerPage = 5) => {
+export const renderResults = (recipes, page = 1, resPerPage = 7) => {
   // render results of current page
   const start = (page - 1) * resPerPage; //0 *10// 1 * 10 (2-1 * 5 = 5)(3 - 1 * 5 = 10)
   const end = page * resPerPage; //1 *10 // 2 * 10   //0 10// 10 20//
