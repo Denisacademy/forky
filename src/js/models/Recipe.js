@@ -129,7 +129,7 @@ export default class Recipe {
     // Servings                                 4 - 1 = 3
     const newServings = type === 'dec' ? this.servings - 1: this.servings + 1;
     
-    //Ingredients
+    //Ingredients    recalculate portion after decreasing
     this.ingredients.forEach(ing => {   //this.servings - property which appeared after fetchiing
       ing.count *= (newServings / this.servings); //ing.count = ing.count * new / this.ser
     });

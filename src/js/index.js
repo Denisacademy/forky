@@ -1,5 +1,6 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import List from './models/List';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
@@ -142,7 +143,7 @@ elements.recipe.addEventListener('click', e => { //matches return true and close
     //Decraese butt clicked   //lok for children of parent element
     if (state.recipe.servings > 1) { //if greater than 1 let`s decrease
         state.recipe.updateServings('dec');
-        recipeView.updateServingsIngredients(state.recipe);
+        recipeView.updateServingsIngredients(state.recipe); // update DOM
     }
     //state.recipe.updateServings('dec');
    } else if (e.target.matches('.btn-increase, .btn-increase *')) {
@@ -155,6 +156,16 @@ elements.recipe.addEventListener('click', e => { //matches return true and close
 })
 
 //console.log(state);
+
+//const l = new List();
+window.l = new List();
+
+
+
+
+
+
+
 
 
 //https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/10677578

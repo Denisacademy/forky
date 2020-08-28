@@ -87,7 +87,7 @@ export const renderRecipe = recipe => { // ${recipe.ingredients.map(el => create
                       <use href="img/icons.svg#icon-circle-with-plus"></use>
                   </svg>
               </button>
-              
+
           </div>
 
       </div>
@@ -131,18 +131,22 @@ export const renderRecipe = recipe => { // ${recipe.ingredients.map(el => create
     elements.recipe.insertAdjacentHTML('afterbegin', markup);
 };
 
-export const updateServingsIngredients  = recipe => {
+export const updateServingsIngredients  = recipe => { //comes from state ctrl 
   //Update servings
   document.querySelector('.recipe__info-data--people').textContent = recipe.servings; //people el
 
   //Update ingredients
-  const countElements = Array.from(document.querySelectorAll('.recipe__count'));
+  const countElements = Array.from(document.querySelectorAll('.recipe__count')); //1 2/3 cup 1 7/8
   //debugger
   //console.log('smth');
   //console.log(countElements);
-  countElements.forEach((el, i) => {
+  countElements.forEach((el, i) => {   
     //console.log(el);
+    //debugger
+                   // parametr of function (recipe)
     el.textContent = formatCount(recipe.ingredients[i].count);
+    /*w.serv.recipe.ingredients[0] = [{count: 1.33, unit: "cup", ingredient: "shortening "}] 
+    */
   }) 
 };
 
