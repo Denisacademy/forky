@@ -124,4 +124,16 @@ export default class Recipe {
     });
     this.ingredients = newIngredients;
   }
+
+  updateServings (type) {//btn dec / inc
+    // Servings                                 4 - 1 = 3
+    const newServings = type === 'dec' ? this.servings - 1: this.servings + 1;
+    
+    //Ingredients
+    this.ingredients.forEach(ing => {   //this.servings - property which appeared after fetchiing
+      ing.count *= (newServings / this.servings); //ing.count = ing.count * new / this.ser
+    });
+
+    this.servings = newServings;
+  }
 }

@@ -99,7 +99,7 @@ const controlRecipe = async () => {
     //if(state.search) searchView.hightLightSelected(id);
     //if(state.search) searchView.showId(id);
     //debugger
-    console.log(document.querySelector(`a[href*="${id}"]`));
+    //console.log(document.querySelector(`a[href*="${id}"]`));
     if(state.search) searchView.highlightSelected(id);
     //searchView.hightLightSelected(id);
     //searchView.showId(id);
@@ -109,8 +109,8 @@ const controlRecipe = async () => {
     state.recipe = new Recipe(id);
     
     // TESTING
-    //window.r = state.recipe;
-    
+    window.r = state.recipe;
+    window.v = recipeView
     try {
       // Get recipe data and parse ingredients
       await state.recipe.getRecipe();
@@ -133,10 +133,33 @@ const controlRecipe = async () => {
 }
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe)); // by def get data
+window.serv = state;
+
+// Handling recipe button clicks //
+elements.recipe.addEventListener('click', e => { //matches return true and closest return elem  
+   if(e.target.matches('.btn-decrease, .btn-decrease *')) { // use asteriks to correctly click button! any child another way of delagation ????
+    console.log(e.target);
+    //Decraese butt clicked   //lok for children of parent element
+    if (state.recipe.servings > 1) { //if greater than 1 let`s decrease
+        state.recipe.updateServings('dec');
+        recipeView.updateServingsIngredients(state.recipe);
+    }
+    //state.recipe.updateServings('dec');
+   } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+    //Decraese butt clicked
+      state.recipe.updateServings('inc');
+      recipeView.updateServingsIngredients(state.recipe);
+
+   }
+   //console.log(state.recipe);
+})
+
+//console.log(state);
+
 
 //https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/10677578
 //https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/10262548
-https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/8667232
+//https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/9939920#questions/8667232
 const div = [10, 100, 1000, 10000]; // 2.36 = 2 9/25
 const multHunder = [2, 4, 8]; // 3 7 4 
 const fn = [3, 4, 7, 9]; //2.18 []
@@ -150,4 +173,14 @@ function transDec(num) {
     }
 }
 
+/*
+document.querySelector('.recipe').addEventListener('click', event => { //dont work
+  if(event.target.matches('.btn-decrease *')) {
+      document.querySelectorAll('.recipe__item').forEach(el => {
+         var st = ["style"]['backgroundColor'];    
+         st.st = st.st === 'red' ? 'blue' : 'red';
+      })
+  }
+})
+*/
 //transDec(numDec);
