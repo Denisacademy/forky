@@ -1,5 +1,4 @@
 import uniqid from 'uniqid'
-import { elements } from '../views/base';
 
 export default class List {
   constructor() {

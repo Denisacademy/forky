@@ -1,8 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as listView from './views/listView';
+
 import { elements, renderLoader, clearLoader } from './views/base';
 
 //console.log(elements);
@@ -15,7 +18,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
 **/
 
 const state = {};
-
+window.state = state;
 
 /**SEARCH CONTROLLER */
 const controllerSearch = async () => { //btn search
@@ -136,6 +139,74 @@ const controlRecipe = async () => {
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe)); // by def get data
 window.serv = state;
 
+/* LIST CONTROLLER */
+const controlList = () => {
+  //create a new list if there in none yet
+  if(!state.list) state.list = new List();
+  
+  //Add each ingrediens to the list and UI
+  state.recipe.ingredients.forEach(el => {
+    const item = state.list.addItem(el.count, el.unit, el.ingredient);
+    
+    listView.renderItem(item); ///RENDER ITEM ****
+  });
+}
+
+// handle delete and update list item events
+elements.shopping.addEventListener('click', e => {
+  const id = e.target.closest('.shopping__item').dataset.itemid; // specific id
+  console.log(id);
+  // handle the delete button 
+  if(e.target.matches('.shopping__delete, .shopping__delete *')) {
+    
+    //Delete from state
+    state.list.deleteItem(id);
+
+    //Delete from UI
+    //debugger
+    listView.deleteItem(id);
+
+
+    //handle the count update
+  } else if(e.target.matches('.shopping__count-value')) {
+      const val = parseFloat(e.target.value, 10) //value select
+      state.list.updateCount(id, val);
+  }
+});
+
+/**
+ * LIKE CONTROLLER
+ */
+const controlLike = () => {
+  if(!state.likes) state.likes = new Likes();
+  const currentID = state.recipe.id
+
+  // USer has NOT yet liked current recipe
+  if(!state.likes.isLiked(currentID)) {
+    // Add like to the state
+    const newLike = state.likes.addLike(
+      currentID, 
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.img
+    );
+    // Toggle the like button
+
+    // Add like to UI list
+      console.log(state.likes);
+  // User has HAS liked current recipe
+  } else {
+    // Remove like from the state
+    state.likes.deleteLike(currentID);
+    // Toggle the like button
+
+    // Remove like from UI list
+    console.log(state.likes);
+
+  }
+}
+
+
 // Handling recipe button clicks //
 elements.recipe.addEventListener('click', e => { //matches return true and closest return elem  
    if(e.target.matches('.btn-decrease, .btn-decrease *')) { // use asteriks to correctly click button! any child another way of delagation ????
@@ -151,6 +222,14 @@ elements.recipe.addEventListener('click', e => { //matches return true and close
       state.recipe.updateServings('inc');
       recipeView.updateServingsIngredients(state.recipe);
 
+   } else if(e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+     console.log('add recipe');
+     elements.shopping.innerHTML = ''; //!!!!!!!!!
+     // Add ingredients to shopping list
+     controlList();
+   } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+     //like controller
+     controlLike();
    }
    //console.log(state.recipe);
 })
@@ -195,3 +274,20 @@ document.querySelector('.recipe').addEventListener('click', event => { //dont wo
 })
 */
 //transDec(numDec);
+
+function sayMeOperations(str) {
+  let strNew = str.split(' ');
+  let strEnd= [];
+  for ( let i = 2; i < strNew.length; i ++) {
+      if ( +strNew[i - 2] +  +strNew[i - 1] == strNew[i]) {
+          strEnd.push('addition');
+      } else if ( strNew[i - 2] - strNew[i - 1] == strNew[i]) {
+          strEnd.push('subtraction');
+      } else if (strNew[i - 2] * strNew[i - 1] == strNew[i])  {
+          strEnd.push('multiplication');
+      } else {
+          strEnd.push('division');
+      }
+  }
+  return strEnd.join(', ');
+}

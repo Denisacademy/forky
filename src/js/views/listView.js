@@ -1,24 +1,26 @@
 import { elements } from './base';
 
-export const renderitem = item => {
-  const markup = `
-      <li class="shopping__item data-itemid="${item.id}">
-      <div class="shopping__count">
-          <input type="number" value="${item.count}" step="${item.count} class="shopping__count-value">
-          <p>${item.unit}</p>
-      </div>
-      <p class="shopping__description">${item.ingredient}</p>
-      <button class="shopping__delete btn-tiny">
-          <svg>
-              <use href="img/icons.svg#icon-circle-with-cross"></use>
-          </svg>
-      </button>
-    </li>
-  `;
-  elements.shopping.insertAdjacentHTML('beforeend', markup);
-}
+export const renderItem = item => { //get id from iten
+    //elements.shopping.innerHTML = '';
+    const markup = `
+        <li class="shopping__item" data-itemid=${item.id}>
+            <div class="shopping__count">
+                <input type="number" value="${item.count}" step="${item.count}" class="shopping__count-value">
+                <p>${item.unit}</p>
+            </div>
+            <p class="shopping__description">${item.ingredient}</p>
+            <button class="shopping__delete btn-tiny">
+                <svg>
+                    <use href="img/icons.svg#icon-circle-with-cross"></use>
+                </svg>
+            </button>
+        </li>
+    `;
+    elements.shopping.insertAdjacentHTML('beforeend', markup);
+};
 
-export const deleItem = id => {
-  const item = document.querySelector(`[date-itemid="${id}"`);
-  item.parentElemtn.removeChild(item);
-}
+export const deleteItem = id => {
+    const item = document.querySelector(`[data-itemid="${id}"]`);
+    console.log(item + ' exe');
+    if (item) item.parentElement.removeChild(item);
+};
