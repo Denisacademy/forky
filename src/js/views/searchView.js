@@ -28,7 +28,7 @@ export const highlightSelected  = id => { //=== get elements with .results__link
   //console.log(id);
   //var cur = document.querySelector(`a[href*="2ec050"]`)//.classList.add('results__link--active');
   //console.log(cur);
-  document.querySelector(`a[href*="${id}"]`).classList.add('results__link--active'); //*?
+  document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active'); //*?
   //document.querySelector(`.results__link[href*="${id}"]`).classList.add('results__link--active');
 
 } 
@@ -43,7 +43,7 @@ acc: 5 / acc + cur.length = 18 / newTitle = ['Pasta', 'with', 'tomato']
 acc: 5 / acc + cur.length = 24 / newTitle = ['Pasta', 'with', 'tomato']
 
 */
-const limitRecipeTitle = (title, limit = 23) => { //cut tutle into array
+export const limitRecipeTitle = (title, limit = 23) => { //cut tutle into array
   const newTitle = [];
   if(title.length > limit) {
     title.split(' ').reduce((acc, current) => { //"The Best Lasagna Ever" = ["The", "Best", "Lasagna", "Ever"]

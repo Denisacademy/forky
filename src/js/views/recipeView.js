@@ -50,7 +50,7 @@ const createIngredient = ingredient => `
         </li>
 `;
          //return mass ["<li>1</li>", "<li>3</li>", "<li>5</li>", "<li>7</li>"].join() = one string
-export const renderRecipe = recipe => { // ${recipe.ingredients.map(el => createIngredient(el))}
+export const renderRecipe = (recipe, isLiked) => { // ${recipe.ingredients.map(el => createIngredient(el))}
   const markup = `
     <figure class="recipe__fig">
       <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -93,7 +93,7 @@ export const renderRecipe = recipe => { // ${recipe.ingredients.map(el => create
       </div>
       <button class="recipe__love">
           <svg class="header__likes">
-              <use href="img/icons.svg#icon-heart-outlined"></use>
+              <use href="img/icons.svg#icon-heart${isLiked ? '': '-outlined'}"></use>
           </svg>
       </button>
     </div>
